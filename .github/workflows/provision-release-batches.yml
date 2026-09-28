@@ -30,9 +30,9 @@ jobs:
           for numero in $(seq "$INICIO" "$fim"); do
             lote=$(printf "%03d" "$numero")
             tag="assets-batch-$lote"
-            if gh release view "$tag" >/dev/null 2>&1; then
+            if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
               echo "$tag ja existe"
               continue
             fi
-            gh release create "$tag" --draft --title "Guizzprints · Lote $lote" --notes "Lote reservado para ate 1.000 arquivos do catalogo Guizzprints. Publique somente depois de enviar os downloads deste lote."
+            gh release create "$tag" --repo "$GITHUB_REPOSITORY" --draft --title "Guizzprints · Lote $lote" --notes "Lote reservado para ate 1.000 arquivos do catalogo Guizzprints. Publique somente depois de enviar os downloads deste lote."
           done
